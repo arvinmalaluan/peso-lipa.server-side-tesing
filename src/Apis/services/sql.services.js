@@ -238,7 +238,7 @@ module.exports = {
     db_conn.query(
       `SELECT jp.id, jp.job_title, jp.job_description, jp.status, jp.created_at, jp.application_deadline, jp.fkid_profile as poster_id,
       (
-        SELECT COUNT(*)
+        SELECT COUNT(*) as count
         FROM tbl_applications
         WHERE fkid_job_postings = jp.id
       ) AS application_count
@@ -304,7 +304,7 @@ module.exports = {
 
   get_count_one_table: (query_variables, call_back) => {
     db_conn.query(
-      `select count(*) from ${query_variables.table_name} where ${query_variables.condition}`,
+      `select count(*) as count from ${query_variables.table_name} where ${query_variables.condition}`,
       [],
       (error, results, fields) => {
         if (error) {
@@ -318,7 +318,7 @@ module.exports = {
 
   get_using_fk_one_tbl: (query_variables, call_back) => {
     db_conn.query(
-      `select count(*) from ${query_variables.table_name} where ${query_variables.condition}`,
+      `select count(*) as count from ${query_variables.table_name} where ${query_variables.condition}`,
       [],
       (error, results, fields) => {
         if (error) {
@@ -380,7 +380,7 @@ module.exports = {
       `SELECT jp.id, 
             jp.views, 
             jp.job_title, 
-            (SELECT COUNT(*) FROM tbl_applications WHERE fkid_job_postings = jp.id) AS applicant_count
+            (SELECT COUNT(*) as count FROM tbl_applications WHERE fkid_job_postings = jp.id) AS applicant_count
       FROM tbl_job_postings AS jp
       LEFT JOIN tbl_applications ON jp.id = tbl_applications.fkid_job_postings
       WHERE jp.fkid_profile = ${query_variables.id}`,

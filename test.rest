@@ -1,5 +1,5 @@
 ###
-GET http://localhost:3000/api/v1/https/documents/compatibs/5
+GET https://peso-lipa-server-side-tesing.onrender.com/api/v1/https/documents/compatibs/5
 # Content-Type: application/json
 
 # {
