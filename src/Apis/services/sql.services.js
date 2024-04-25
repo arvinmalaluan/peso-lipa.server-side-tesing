@@ -138,7 +138,7 @@ module.exports = {
         FROM tbl_profile
         JOIN tbl_job_postings ON tbl_profile.id = tbl_job_postings.fkid_profile
         LEFT JOIN tbl_applications ON tbl_applications.fkid_job_postings = tbl_job_postings.id
-        WHERE tbl_job_postings.id = ${query_variables.id};
+        WHERE tbl_applications.fkid_job_postings = ${query_variables.id};
       `,
       [],
       (error, results, fields) => {
