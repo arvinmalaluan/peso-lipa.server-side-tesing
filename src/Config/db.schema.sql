@@ -139,6 +139,7 @@ create table tbl_interviews (
     id int not null auto_increment,
     interview_date date not null,
     interview_start_time time not null,
+    interview_end_time time not null,
     venue varchar(1000) not null,
     reminders varchar(1000),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
