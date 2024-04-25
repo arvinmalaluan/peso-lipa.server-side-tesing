@@ -160,4 +160,60 @@ module.exports = {
       }
     });
   },
+
+  getActiveCount: (req, res) => {
+    const query_variables = {
+      condition: `status = 'active' and fkid_profile = ${req.body.id}`,
+      table_name: "tbl_job_postings",
+    };
+
+    services.get_count_one_table(query_variables, (error, results) => {
+      errorHandling.check_results(res, error, results);
+
+      if (results.length !== 0) {
+        return res.status(201).json({
+          success: 1,
+          message: "Created Successfully",
+          results: results,
+        });
+      }
+    });
+  },
+
+  getEverything: (req, res) => {
+    const query_variables = {
+      condition: `fkid_profile = ${req.body.id}`,
+      table_name: "tbl_applications",
+    };
+
+    services.get_using_fk_one_tbl(query_variables, (error, results) => {
+      errorHandling.check_results(res, error, results);
+
+      if (results.length !== 0) {
+        return res.status(201).json({
+          success: 1,
+          message: "Created Successfully",
+          results: results,
+        });
+      }
+    });
+  },
+
+  getViewsCounts: (req, res) => {
+    const query_variables = {
+      id: req.body.id,
+    };
+
+    services.get_views_count(query_variables, (error, results) => {
+      errorHandling.check_results(res, error, results);
+
+      if (results.length !== 0) {
+        return res.status(201).json({
+          success: 1,
+          message: "Created Successfully",
+          results: results,
+        });
+      }
+    });
+  },
 };

@@ -172,7 +172,8 @@ module.exports = {
                 tbl_job_postings.location,
                 tbl_job_postings.created_at,
                 tbl_job_postings.views,
-                tbl_job_postings.status
+                tbl_job_postings.status,
+                tbl_job_postings.fkid_profile as company_id,  
         FROM tbl_profile
         JOIN tbl_job_postings ON tbl_profile.id = tbl_job_postings.fkid_profile
       `,
@@ -284,6 +285,51 @@ module.exports = {
       FROM tbl_profile as tbp
       JOIN tbl_account as tba ON tbp.fkid_account = tba.id
       JOIN tbl_resume as tbr ON tbr.fkid_profile = tbp.id`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          return call_back(error);
+        }
+
+        return call_back(null, results);
+      }
+    );
+  },
+
+  get_count_one_table: (query_variables, call_back) => {
+    db_conn.query(
+      `select count(*) from ${query_variables.table_name} where ${query_variables.condition}`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          return call_back(error);
+        }
+
+        return call_back(null, results);
+      }
+    );
+  },
+
+  get_using_fk_one_tbl: (query_variables, call_back) => {
+    db_conn.query(
+      `select  from ${query_variables.table_name} where ${query_variables.condition}`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          return call_back(error);
+        }
+
+        return call_back(null, results);
+      }
+    );
+  },
+
+  get_views_count: (query_variables, call_back) => {
+    db_conn.query(
+      `SELECT tbl_job_postings.id, tbl_job_postings.views, tbl_job_postings.job_title, COUNT(tbl_applications.fkid_job_postings) AS applicant_count
+      FROM tbl_job_postings
+      LEFT JOIN tbl_applications ON tbl_job_postings.id = tbl_applications.fkid_job_postings
+      WHERE tbl_job_postings.fkid_profile = ${query_variables.id}`,
       [],
       (error, results, fields) => {
         if (error) {

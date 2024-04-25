@@ -116,10 +116,11 @@ CREATE TABLE tbl_applications(
     fkid_job_postings int not null,
     fkid_profile int not null,
     fkid_resume int not null,
+    fkid_company int not null,
     primary key(id),
     FOREIGN key (fkid_job_postings) REFERENCES tbl_job_postings(id),
     foreign key (fkid_profile) REFERENCES tbl_profile(id),
-    foreign key (fkid_resume) REFERENCES tbl_resume(id)
+    foreign key (fkid_company) REFERENCES tbl_profile(id)
 );
 
 create table tbl_documents (
