@@ -9,9 +9,11 @@ module.exports = {
         fkid_job_postings: req.body.fkid_job_postings,
         fkid_profile: req.body.fkid_profile,
         fkid_resume: req.body.fkid_resume,
+        fkid_company: req.body.fkid_company,
       };
 
-      const fields = "fkid_job_postings, fkid_profile, fkid_resume";
+      const fields =
+        "fkid_job_postings, fkid_profile, fkid_resume, fkid_company";
 
       const query_variables = {
         fields: fields,
@@ -180,6 +182,24 @@ module.exports = {
     const query_variables = {
       condition: `fkid_profile = ${req.body.id}`,
       table_name: "tbl_applications",
+    };
+
+    services.get_using_fk_one_tbl(query_variables, (error, results) => {
+      errorHandling.check_results(res, error, results);
+
+      if (results.length !== 0) {
+        return res.status(201).json({
+          success: 1,
+          message: "Created Successfully",
+          results: results,
+        });
+      }
+    });
+  },
+
+  getSummaryByStatus: (req, res) => {
+    const query_variables = {
+      condition: `fkid_company = ${req.body.id}`,
     };
 
     services.get_using_fk_one_tbl(query_variables, (error, results) => {

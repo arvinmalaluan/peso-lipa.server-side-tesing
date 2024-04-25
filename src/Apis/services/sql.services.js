@@ -103,6 +103,7 @@ module.exports = {
 
   // ? Custom services
   get_jobpost_w_profile: (query_variables, call_back) => {
+    console.log(query_variables.id);
     db_conn.query(
       `
         SELECT tbl_profile.image,
@@ -134,11 +135,12 @@ module.exports = {
                 tbl_job_postings.status,
                 tbl_applications.id as application_id,
                 tbl_applications.fkid_profile as applicant_id,
-                tbl_applications.status as application_status
+                tbl_applications.status as application_status,
+                tbl_job_postings.fkid_profile as company_id
         FROM tbl_profile
         JOIN tbl_job_postings ON tbl_profile.id = tbl_job_postings.fkid_profile
         LEFT JOIN tbl_applications ON tbl_applications.fkid_job_postings = tbl_job_postings.id
-        WHERE tbl_applications.fkid_job_postings = ${query_variables.id};
+        WHERE tbl_job_postings.id = ${query_variables.id};
       `,
       [],
       (error, results, fields) => {
@@ -173,7 +175,7 @@ module.exports = {
                 tbl_job_postings.created_at,
                 tbl_job_postings.views,
                 tbl_job_postings.status,
-                tbl_job_postings.fkid_profile as company_id,  
+                tbl_job_postings.fkid_profile as company_id  
         FROM tbl_profile
         JOIN tbl_job_postings ON tbl_profile.id = tbl_job_postings.fkid_profile
       `,
@@ -234,9 +236,13 @@ module.exports = {
 
   get_my_job_posts: (query_variables, call_back) => {
     db_conn.query(
-      `SELECT DISTINCT jp.id, jp.job_title, jp.job_description, jp.status, jp.created_at, jp.application_deadline, jp.fkid_profile as poster_id, COUNT(*) OVER (PARTITION BY jp.id) AS application_count
-      FROM tbl_job_postings as jp
-      LEFT JOIN tbl_applications ON tbl_applications.fkid_job_postings = jp.id
+      `SELECT jp.id, jp.job_title, jp.job_description, jp.status, jp.created_at, jp.application_deadline, jp.fkid_profile as poster_id,
+      (
+        SELECT COUNT(*)
+        FROM tbl_applications
+        WHERE fkid_job_postings = jp.id
+      ) AS application_count
+      FROM tbl_job_postings AS jp
       WHERE ${query_variables.condition};`,
       [],
       (error, results, fields) => {
@@ -330,6 +336,23 @@ module.exports = {
       FROM tbl_job_postings
       LEFT JOIN tbl_applications ON tbl_job_postings.id = tbl_applications.fkid_job_postings
       WHERE tbl_job_postings.fkid_profile = ${query_variables.id}`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          return call_back(error);
+        }
+
+        return call_back(null, results);
+      }
+    );
+  },
+
+  get_summary: (query_variables, call_back) => {
+    db_conn.query(
+      `SELECT status, COUNT(*) AS application_count
+      FROM tbl_applications
+      WHERE fkid_company = ${query_variables.id}
+      GROUP BY status;`,
       [],
       (error, results, fields) => {
         if (error) {

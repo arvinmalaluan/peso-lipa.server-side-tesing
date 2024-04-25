@@ -10,5 +10,6 @@ router.delete("/:id", controller.delete);
 
 router.get("/count-applied", controller.getCountApplied);
 router.get("/get-everything", controller.getEverything);
+router.get("/get-summary", controller.getSummaryByStatus);
 
 module.exports = router;

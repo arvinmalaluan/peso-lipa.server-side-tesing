@@ -66,7 +66,7 @@ module.exports = {
       id: req.params.id,
     };
 
-    services.get_jobpost_w_profile(query_variables, (error, results) => {
+    services.get_summary(query_variables, (error, results) => {
       errorHandling.check_results(res, error, results);
 
       if (results.length !== 0) {
