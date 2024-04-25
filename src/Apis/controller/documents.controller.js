@@ -5,7 +5,7 @@ const errorHandling = require("../../Helpers/errorHandling");
 module.exports = {
   createResume: (req, res) => {
     const fields =
-      "resume_name, fullname, contact_number, email_address, resume_objective, tertiary_degree, tertiary_institution, tertiary_year_grad, tertiary_achievements, secondary_institution, secondary_year_grad, secondary_achievements, primary_institution, primary_year_grad, primary_achievements, language, language_proficiency, hobbies_interest, skills, skills_proficiency, ar_reward_name, ar_year_received, ar_issuer, ar_reward_description, project_title, project_year, project_desc, we_job_title, we_start_date, we_end_date, we_notable_achievement, reference_name, reference_relationship_to_you, reference_institution, reference_contact_info, fkid_profile";
+      "resume_name, fullname, contact_number, email_address, resume_objective, tertiary_degree, tertiary_institution, tertiary_year_grad, tertiary_achievements, secondary_institution, secondary_year_grad, secondary_achievements, primary_institution, primary_year_grad, primary_achievements, language, language_proficiency, hobbies_interest, skills, skills_proficiency, ar_reward_name, ar_year_received, ar_issuer, ar_reward_description, project_title, project_year, project_desc, we_job_title, we_start_date, we_end_date, we_notable_achievement, reference_name, reference_relationship_to_you, reference_institution, reference_contact_info, fkid_profile, compatible_positions";
 
     const format_values = {
       resume_name: req.body.resume_name,
@@ -212,7 +212,7 @@ module.exports = {
     const query_variables = {
       fields: "compatible_positions",
       table_name: "tbl_resume",
-      id: `fkid_profile = ${req.params.fk}`,
+      condition: `fkid_profile = ${req.params.fk}`,
     };
 
     services.get_fk(query_variables, (error, results) => {
