@@ -219,10 +219,30 @@ module.exports = {
       errorHandling.check_results(res, error, results);
 
       if (results.length !== 0) {
+        let empty = [];
+
+        results.map((item, index) => {
+          const array = item["compatible_positions"].split("_");
+          empty = [...empty, ...array];
+        });
+
+        let new_empty = [];
+        empty.map((item, index) => {
+          const splitted = item.split("+");
+          new_empty.push({ position: splitted[0], compatibility: splitted[1] });
+        });
+
+        const dataWithNumbers = new_empty.map((obj) => ({
+          ...obj,
+          compatibility: parseFloat(obj.compatibility),
+        }));
+        dataWithNumbers.sort((a, b) => b.compatibility - a.compatibility);
+        const topTen = dataWithNumbers.slice(0, 10);
+
         return res.status(201).json({
           success: 1,
           message: "Created Successfully",
-          results: results,
+          results: topTen,
         });
       }
     });
