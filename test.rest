@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ###
-POST https://jkgyrgyf0a.execute-api.ap-southeast-2.amazonaws.com/prod/api/v1/https/auth/signin
+POST https://peso-lipa-server-side-tesing.onrender.com/api/v1/https/auth/signin
 Content-Type: application/json
 
 {
