@@ -1,18 +1,20 @@
 ###
-POST  http://localhost:3000/api/v1/https/apply/get-summary
-Content-Type: application/json
+GET https://peso-lipa-server-side-tesing.onrender.com/api/v1/https/documents/compatibs/5
+# Content-Type: application/json
 
-{
-    "id": 5
-}
+# {
+#     "fkid_job_postings": 2,
+#     "fkid_profile": 5,
+#     "fkid_company": 2,
+#     "fkid_resume": 2
+# }
 
 ###
-POST https://peso-lipa-server-side-tesing.onrender.com/api/v1/https/auth/signin
+POST https://simple-content-based-filtering-algo.onrender.com/general/jobpost
 Content-Type: application/json
 
 {
-    "email": "seeker.email@gmail.com",
-    "password": "default"
+    "skills": ["programming", "cooking", "english"]
 }
 
 ###

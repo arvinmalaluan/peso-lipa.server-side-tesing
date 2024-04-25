@@ -8,5 +8,6 @@ router.post("/d", controller.createDocuments);
 router.patch("/r/:id", controller.patchResume);
 router.patch("/d/:id", controller.patchDocuments);
 router.delete("/:id", controller.delete);
+router.get("/compatibs/:fk/", controller.getCompatibles);
 
 module.exports = router;

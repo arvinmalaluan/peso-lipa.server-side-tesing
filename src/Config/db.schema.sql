@@ -104,6 +104,7 @@ create table tbl_resume (
     reference_contact_info text not null,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     on_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    compatible_positions TEXT NOT NULL,
     fkid_profile int,
     primary key (id),
     foreign key (fkid_profile) references tbl_profile(id)

@@ -330,6 +330,20 @@ module.exports = {
     );
   },
 
+  get_fk: (query_variables, call_back) => {
+    db_conn.query(
+      `select ${query_variables.fields} from ${query_variables.table_name} where ${query_variables.condition}`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          return call_back(error);
+        }
+
+        return call_back(null, results);
+      }
+    );
+  },
+
   get_names_using_fk_one_tbl: (query_variables, call_back) => {
     db_conn.query(
       `select job_title from ${query_variables.table_name} where ${query_variables.condition}`,
