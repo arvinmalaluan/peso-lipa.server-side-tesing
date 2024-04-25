@@ -16,10 +16,11 @@ module.exports = {
         ig_link: req.body.ig_link,
         ln_link: req.body.ln_link,
         fkid_account: req.body.fkid_account,
+        image: req.body.image,
       };
 
       const fields =
-        "name, location, bio, portfolio_link, gender, educational_attainment, fb_link, ig_link, ln_link, fkid_account";
+        "name, location, bio, portfolio_link, gender, educational_attainment, fb_link, ig_link, ln_link, fkid_account, image";
 
       const query_variables = {
         fields: fields,
