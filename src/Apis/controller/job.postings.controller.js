@@ -163,7 +163,7 @@ module.exports = {
 
   getActiveCount: (req, res) => {
     const query_variables = {
-      condition: `status = 'active' and fkid_profile = ${req.body.id}`,
+      condition: `status = 'open' and fkid_profile = ${req.body.id}`,
       table_name: "tbl_job_postings",
     };
 
@@ -183,10 +183,10 @@ module.exports = {
   getEverything: (req, res) => {
     const query_variables = {
       condition: `fkid_profile = ${req.body.id}`,
-      table_name: "tbl_applications",
+      table_name: "tbl_job_postings",
     };
 
-    services.get_using_fk_one_tbl(query_variables, (error, results) => {
+    services.get_names_using_fk_one_tbl(query_variables, (error, results) => {
       errorHandling.check_results(res, error, results);
 
       if (results.length !== 0) {

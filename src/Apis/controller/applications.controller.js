@@ -161,7 +161,7 @@ module.exports = {
 
   getCountApplied: (req, res) => {
     const query_variables = {
-      condition: `fkid_profile = ${req.body.id}`,
+      condition: `fkid_company = ${req.body.id}`,
       table_name: "tbl_applications",
     };
 
@@ -180,11 +180,11 @@ module.exports = {
 
   getEverything: (req, res) => {
     const query_variables = {
-      condition: `fkid_profile = ${req.body.id}`,
+      condition: `fkid_company = ${req.body.id}`,
       table_name: "tbl_applications",
     };
 
-    services.get_using_fk_one_tbl(query_variables, (error, results) => {
+    services.get_using_fk_one_tbl_wp(query_variables, (error, results) => {
       errorHandling.check_results(res, error, results);
 
       if (results.length !== 0) {
@@ -199,10 +199,10 @@ module.exports = {
 
   getSummaryByStatus: (req, res) => {
     const query_variables = {
-      condition: `fkid_company = ${req.body.id}`,
+      id: req.body.id,
     };
 
-    services.get_using_fk_one_tbl(query_variables, (error, results) => {
+    services.get_summary(query_variables, (error, results) => {
       errorHandling.check_results(res, error, results);
 
       if (results.length !== 0) {

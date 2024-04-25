@@ -8,8 +8,8 @@ router.post("/", controller.create);
 router.patch("/:id", controller.update);
 router.delete("/:id", controller.delete);
 
-router.get("/count-applied", controller.getCountApplied);
-router.get("/get-everything", controller.getEverything);
-router.get("/get-summary", controller.getSummaryByStatus);
+router.post("/count-applied", controller.getCountApplied);
+router.post("/get-everything", controller.getEverything);
+router.post("/get-summary", controller.getSummaryByStatus);
 
 module.exports = router;

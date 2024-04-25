@@ -9,8 +9,9 @@ router.get("/get_fk/:fk", controller.get_using_fk);
 router.patch("/patch/:id", controller.patch);
 
 router.post("/applicants", controller.getAllApplicants);
-router.get("/applicants", controller.getActiveCount);
-router.get("/get-everything", controller.getEverything);
+router.post("/active-count", controller.getActiveCount); // ! --> working but not implemented
+router.post("/get-everything", controller.getEverything); // ! --> working but not implemented
+router.post("/get-vc", controller.getViewsCounts); // ! --> working but not implemented
 
 // router.get("/delete/:id")
 

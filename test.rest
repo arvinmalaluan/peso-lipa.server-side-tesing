@@ -1,11 +1,9 @@
 ###
-PATCH  http://localhost:3000/api/v1/https/auth/update/13
+POST  http://localhost:3000/api/v1/https/apply/get-summary
 Content-Type: application/json
 
 {
-    "email": "malaluanofficial7@gmail.com",
-    "password": "default_new",
-    "new_password": "default_new"
+    "id": 5
 }
 
 ###

@@ -318,7 +318,38 @@ module.exports = {
 
   get_using_fk_one_tbl: (query_variables, call_back) => {
     db_conn.query(
-      `select  from ${query_variables.table_name} where ${query_variables.condition}`,
+      `select count(*) from ${query_variables.table_name} where ${query_variables.condition}`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          return call_back(error);
+        }
+
+        return call_back(null, results);
+      }
+    );
+  },
+
+  get_names_using_fk_one_tbl: (query_variables, call_back) => {
+    db_conn.query(
+      `select job_title from ${query_variables.table_name} where ${query_variables.condition}`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          return call_back(error);
+        }
+
+        return call_back(null, results);
+      }
+    );
+  },
+
+  get_using_fk_one_tbl_wp: (query_variables, call_back) => {
+    db_conn.query(
+      `SELECT tbl_profile.name
+      FROM tbl_applications 
+      JOIN tbl_profile on tbl_applications.fkid_profile = tbl_profile.id
+      where ${query_variables.condition}`,
       [],
       (error, results, fields) => {
         if (error) {
@@ -332,10 +363,13 @@ module.exports = {
 
   get_views_count: (query_variables, call_back) => {
     db_conn.query(
-      `SELECT tbl_job_postings.id, tbl_job_postings.views, tbl_job_postings.job_title, COUNT(tbl_applications.fkid_job_postings) AS applicant_count
-      FROM tbl_job_postings
-      LEFT JOIN tbl_applications ON tbl_job_postings.id = tbl_applications.fkid_job_postings
-      WHERE tbl_job_postings.fkid_profile = ${query_variables.id}`,
+      `SELECT jp.id, 
+            jp.views, 
+            jp.job_title, 
+            (SELECT COUNT(*) FROM tbl_applications WHERE fkid_job_postings = jp.id) AS applicant_count
+      FROM tbl_job_postings AS jp
+      LEFT JOIN tbl_applications ON jp.id = tbl_applications.fkid_job_postings
+      WHERE jp.fkid_profile = ${query_variables.id}`,
       [],
       (error, results, fields) => {
         if (error) {
