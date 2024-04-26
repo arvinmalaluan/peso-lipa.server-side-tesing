@@ -270,7 +270,7 @@ module.exports = {
       p.location,
       p.name,
       app.id as app_id,
-      jp.fkid_profile as fkid_company
+      app.fkid_profile as fkid_applicant
       from tbl_applications as app
       join tbl_job_postings as jp on app.fkid_job_postings = jp.id
       join tbl_profile as p on app.fkid_profile = p.id
