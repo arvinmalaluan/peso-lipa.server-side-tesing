@@ -51,11 +51,11 @@ module.exports = {
         venue: req.body.venue,
         reminders: req.body.reminders,
         fkid_company: req.body.fkid_company,
-        fkid_applicants: req.body.fkid_applicants,
+        fkid_applicant: req.body.fkid_applicant,
       };
 
       // prettier-ignore
-      const fields = "interview_date, interview_start_time, interview_end_time, venue, reminders, fkid_company, fkid_applicants";
+      const fields = "interview_date, interview_start_time, interview_end_time, venue, reminders, fkid_company, fkid_applicant";
 
       const query_variables = {
         fields: fields,
