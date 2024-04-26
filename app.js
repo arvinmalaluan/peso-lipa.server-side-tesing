@@ -27,5 +27,6 @@ app.use("/api/v1/https/profile", routes.profileRouter); // --------> For Authent
 app.use("/api/v1/https/jobpost", routes.jobPostingsRouter); // ----> For Authentication Related Routes
 app.use("/api/v1/https/apply", routes.applicationRouter); // ------> For Authentication Related Routes
 app.use("/api/v1/https/documents", routes.documentsRouter); // ----> For Authentication Related Routes
+app.use("/api/v1/https/interview", routes.interviewsRouter); // ---> For Authentication Related Routes
 
 module.exports = { server };
